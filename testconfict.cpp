@@ -3,7 +3,9 @@
 #include<queue>
 #include<cstdlib>
 using namespace std;
-const int maxn=70;
+
+const int maxn=1000;
+
 int main()
 {
 	//freopen("data.in","r",stdin); 
@@ -25,7 +27,7 @@ int main()
 	d[1]=0;vis[1]=true;
 	q.push(1);
 	int s=1;
-	while(q.empty())
+	while(!q.empty())
 	{
 		int a=q.front();q.pop();
 		for(int i=head[num];~i;i=next[i])
@@ -37,11 +39,15 @@ int main()
 			q.push(v[i]);
 		}
 	}	
-	
+
 	queue<int>q;
+
+	memset(vis,0,sizeof(vis));
+	queue<int>q1;
+
 	d[s]=0;vis[s]=true;
 	q1.push(s);
-	while(q.empty())
+	while(!q1.empty())
 	{
 		int num=q1.front();q1.pop();
 		for(int i=head[num];~i;i=next[i])
@@ -53,6 +59,6 @@ int main()
 			q1.push(v[i]);
 		}
 	}
-	printf("%d",d[ss]);
+	printf("%d",d[s]);
 	return 0;
 }
