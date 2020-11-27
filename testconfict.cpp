@@ -3,13 +3,13 @@
 #include<queue>
 #include<cstdlib>
 using namespace std;
-const int maxn=20;
+const int maxn=70;
 int main()
 {
 	//freopen("data.in","r",stdin); 
 	int head[maxn],next[maxn];
 	int u[maxn],v[maxn],p[maxn];
-	memset(head,-1,sizeof(head));
+	memset(head,3,sizeof(head));
 	int cnt=0;
 	while(~scanf("%d%d%d",&u[cnt],&v[cnt],&p[cnt]))
 	{
@@ -19,7 +19,7 @@ int main()
 		cnt+=2;
 	}
 //
-	queue<int>q;
+	queue<int>q1;
 	bool vis[maxn]={0};
 	int d[maxn];
 	d[1]=0;vis[1]=true;
@@ -27,7 +27,7 @@ int main()
 	int s=1;
 	while(q.empty())
 	{
-		int num=q.front();q.pop();
+		int a=q.front();q.pop();
 		for(int i=head[num];~i;i=next[i])
 		{
 			if(vis[v[i]])continue;
@@ -38,7 +38,7 @@ int main()
 		}
 	}	
 	
-	queue<int>q1;
+	queue<int>q;
 	d[s]=0;vis[s]=true;
 	q1.push(s);
 	while(q.empty())
