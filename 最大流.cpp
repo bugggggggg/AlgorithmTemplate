@@ -1,3 +1,5 @@
+
+//整型版
 namespace Dinic
 {
 	const int inf=1e9;
@@ -45,6 +47,33 @@ namespace Dinic
             edge[i].w-=k;edge[i^1].w+=k;rest-=k;
         }return flow-rest;
     }
+
+    /*
+    //跑double的时候用加精度高于减
+    db dinic(int x,db flow)
+    {
+        if(x==t)return flow;
+        db ret=0;
+        for(int i=head[x];i;i=edge[i].nxt){
+            int y=edge[i].to;
+            if(d[y]==d[x]+1&&edge[i].w>eps){
+                db k=dinic(y,min(edge[i].w,flow));
+                if(k<0)continue;
+                edge[i].w-=k;
+                edge[i^1].w+=k;
+                ret+=k;
+                flow-=k;
+                if(flow<eps)break;
+            }
+        }
+        if(ret<eps)d[x]=-1;
+        return ret;
+        
+    }
+    */
+
+
+
     int solve()
     {
         int maxflow=0,flow;
@@ -54,6 +83,76 @@ namespace Dinic
     }
 }
 
+
+//double版
+const db eps=1e-9;
+
+namespace Dinic
+{
+    const int inf=1e9;
+    struct Edge
+    {
+        int to,nxt;
+        db w;
+    }edge[100660];
+    int head[20660],tot;
+    void addedge(int x,int y,db w)
+    {
+        edge[++tot].to=y;edge[tot].w=w;edge[tot].nxt=head[x];head[x]=tot;
+        edge[++tot].to=x;edge[tot].w=0;edge[tot].nxt=head[y];head[y]=tot;
+        // printf("%d -> %d : %d\n",x,y,w);
+    }
+    queue<int>q;
+    int d[20660],s,t;
+    void init(int S,int T){
+        s=S,t=T,tot=1;
+        for(int i=0;i<=T;i++)head[i]=0;
+    }
+    bool bfs()
+    {
+        for(int i=0;i<=t;i++)d[i]=0;
+        while(!q.empty())q.pop();
+        d[s]=1;q.push(s);
+        while(!q.empty())
+        {
+            int x=q.front();q.pop();
+            for(int i=head[x];i;i=edge[i].nxt)
+            {
+                int y=edge[i].to;
+                if(d[y]||edge[i].w<eps)continue;
+                d[y]=d[x]+1;q.push(y);
+                if(y==t)return true;
+            }
+        }return false;
+    }
+    db dinic(int x,db flow)
+    {
+        if(x==t)return flow;
+        db ret=0;
+        for(int i=head[x];i;i=edge[i].nxt){
+            int y=edge[i].to;
+            if(d[y]==d[x]+1&&edge[i].w>eps){
+                db k=dinic(y,min(edge[i].w,flow));
+                if(k<0)continue;
+                edge[i].w-=k;
+                edge[i^1].w+=k;
+                ret+=k;
+                flow-=k;
+                if(flow<eps)break;
+            }
+        }
+        if(ret<eps)d[x]=-1;
+        return ret;
+    }
+    db solve()
+    {
+        db maxflow=0,flow;
+        while(bfs())
+            while(flow=dinic(s,inf))maxflow+=flow;
+        return maxflow;
+    }
+
+}
 
 /*
 

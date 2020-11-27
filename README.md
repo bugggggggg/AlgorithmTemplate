@@ -1,2 +1,2 @@
 # w_57AlgorithmTemplate
- a=10
+a=20
