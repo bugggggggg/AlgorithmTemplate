@@ -60,11 +60,13 @@ std::map<int,int>Map;
 int main()
 {
     scanf("%d",&n);
-    for(int i=1;i<((n+1)<<2);i<<=1)
     {
-        int wn=qpow(3,(mod-1)/(i<<1));w[i]=1;
-        for(int j=1;j<i;j++)w[i+j]=mul(w[i+j-1],wn);
-    }
+    	for(int i=1;i<((n+1)<<2);i<<=1)
+        {
+            int wn=qpow(3,(mod-1)/(i<<1));w[i]=1;
+            for(int j=1;j<i;j++)w[i+j]=mul(w[i+j-1],wn);
+        }//预处理，这个3是998244353的原根
+	}
     for(int i=1,x;i<=n;i++)scanf("%d",&x),Map[x]++;
     int tot=0;
     for(std::map<int,int>::iterator it=Map.begin();it!=Map.end();++it)a[++tot]=it->second;
