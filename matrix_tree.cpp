@@ -8,15 +8,15 @@ LL gauss(int n){//求矩阵K的n-1阶顺序主子式
             while(K[j][i]){//辗转相除
                 int t=K[i][i]/K[j][i];
                 for(int k=i;k<=n-1;k++)//转为倒三角
-                    K[i][k]=(K[i][k]-t*K[j][k]%MOD+MOD)%MOD;
+                    K[i][k]=(K[i][k]-t*K[j][k]%mod+mod)%mod;
                 swap(K[i],K[j]);//交换i、j两行
-                res=-res;//取负
+                res=-res;//取负(交换两行，值取反)
             }
         }
-        res=(res*K[i][i])%MOD;
+        res=(res*K[i][i])%mod;
     }
-    return (res+MOD)%MOD;
-}
+    return (res+mod)%mod;
+}//跑完后K数组改变了
 
 //如果存在一条边x--y
 //K[x][y]--;K[y][x]--;K[x][x]++;K[y][y]++;

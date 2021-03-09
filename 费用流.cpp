@@ -6,6 +6,7 @@
 
 namespace MCMF
 {
+    const int inf=1e9;
     struct Edge
     {
         int to,nxt,w,cost;
@@ -13,6 +14,7 @@ namespace MCMF
     int head[1066],tot;
     void addedge(int x,int y,int w,int cost)
     {
+        //printf("%d ->%d :%d %d \n",x,y,w,cost);
         edge[++tot].to=y;edge[tot].w=w;edge[tot].cost=cost;edge[tot].nxt=head[x];head[x]=tot;
         edge[++tot].to=x;edge[tot].w=0;edge[tot].cost=-cost;edge[tot].nxt=head[y];head[y]=tot;
     }
