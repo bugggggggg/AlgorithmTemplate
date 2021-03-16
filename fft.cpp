@@ -1,5 +1,74 @@
+
+//新版
+
+const db PI=acos(-1.0);
+#define Complex complex<db> 
+#define poly vector<Complex>
+
+int lim,R[2300066];
+Complex t1[2300066],t2[2300066];
+
+/*
+ * fft
+ * on==1 时是 DFT，on==-1 时是 IDFT
+ */
+void fft(Complex*a,int on)
+{
+	for(int i=0;i<lim;i++)if(i<R[i])swap(a[i],a[R[i]]);
+	for(int h=2;h<=lim;h<<=1)
+	{
+		Complex wn(cos(on*2*PI/h),sin(on*2*PI/h));//////
+		for(int j=0;j<lim;j+=h)
+		{
+			Complex w(1,0);
+			for(int k=j;k<j+h/2;k++)
+			{
+				Complex u=a[k],t=w*a[k+h/2];
+				a[k]=u+t;
+				a[k+h/2]=u-t;
+				w=w*wn;
+			}
+		}
+	}
+	if(on==-1)
+		for(int i=0;i<lim;i++)
+			a[i].real(a[i].real()/lim);
+}
+
+poly operator*(poly a,poly b)
+{
+    int siz=(int)a.size()+(int)b.size()-1;
+    lim=1;
+    while(lim<=siz)lim<<=1;//实际上是siz+1位，所以找第一个比siz大的。
+    for(int i=1;i<lim;i++)R[i]=(R[i>>1]>>1)|((i&1)?lim>>1:0);
+    memset(t1,0,(lim+1)*sizeof(Complex));
+    memset(t2,0,(lim+1)*sizeof(Complex));
+    for(int i=(int)a.size()-1;~i;--i)t1[i]=a[i];
+    for(int i=(int)b.size()-1;~i;--i)t2[i]=b[i];
+    fft(t1,1);fft(t2,1);
+    for(int i=0;i<lim;i++)t1[i]=t1[i]*t2[i];
+    fft(t1,-1);
+    a.resize(siz);
+    for(int i=0;i<siz;i++)a[i]=t1[i];
+    return a;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
 #define db double
 const db PI=acos(-1.0);
+
+////
+
+#define Complex complex<db>
+/*
+z.real(),z.imag()//取值
+z.imag(99); z.real(-4.5);//赋值
+*/
+
 struct Complex
 {
 	db x,y;
@@ -20,24 +89,19 @@ struct Complex
 		return Complex(x*b.x-y*b.y,x*b.y+y*b.x);
 	}
 };
-/*
- * 进行 FFT 和 IFFT 前的反转变换。
- * 位置 i 和（i 二进制反转后位置）互换
- * len 必须为 2 的幂
- */
-void change(Complex y[],int len)
-{
-	int i,j,k;
-	for(i=1,j=len/2;i<len-1;i++)
-	{
-		if(i<j)swap(y[i],y[j]);
-		k=len/2;
-		while(j>=k)
-		{
-			j-=k;k/=2;
+//////////////////
+
+// 同样需要保证 len 是 2 的幂
+// 记 rev[i] 为 i 翻转后的值
+int rev[1000066];
+void change(Complex y[], int len) {
+	for(int i=1;i<len;i++)rev[i]=(rev[i>>1]>>1)|((i&1)?lim>>1:0);
+	for (int i = 0; i < len; ++i) {
+		if (i < rev[i]) {  // 保证每对数只翻转一次
+		  swap(y[i], y[rev[i]]);
 		}
-		if(j<k)j+=k;
 	}
+	return;
 }
 /*
  * fft
