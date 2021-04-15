@@ -1,2 +1,1 @@
-# w_57AlgorithmTemplate
-a=20
+acm板子
