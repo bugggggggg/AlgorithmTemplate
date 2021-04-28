@@ -1,5 +1,10 @@
 # 杜教筛
 
+
+	g(1)S(n)=(求和(i:1--n):(f*g)(i))-(求和(i:2--n):g(i)S(n/i))
+	S(n)是f的前缀和，
+	f*g的前缀和要能快速求。
+	这里的*代表迪利克雷卷积，别和乘法弄混了
 ```c
 #include<cstdio>
 #include<algorithm>

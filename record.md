@@ -149,3 +149,52 @@ p = a[2]*x[2]+w[2]
     可以对每条A中的线段(l,r),求B中左端点小于等于l的右端点最大值，然后交换A、B再来一次。
 
 36. 博弈问题先手必败状态相对好求一点（对于对方的每一次操作，想办法通过一次操作使全局状态回到一个等价的状态）：最经典的一个数n，每次可以取[1,P],那么n=k*p是必败态   对于先手每一次操作，后手都使这个数回到模p为0这个等价状态。
+
+37. rand()最大只有3万多，取随机数用
+
+    ```c
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    int rnd(int l, int r) {
+        uniform_int_distribution<int> uni(l, r);
+        return uni(rng);
+    }
+    ```
+
+38. 求一个区间w的出现次数，可以主席树，也可以对每个数，记录出现位置，然后二分。
+
+39. 对于完全没思路的题，可以想想暴力做法，从暴力做法入手做优化。
+
+40. 有时候正这不好做，可以反方向思考。
+
+41. void f(int a[10])传的是指针，因此对传的指针a用sizeof得到的不是数组的大小，是指针的大小。
+
+42. windows下的对拍程序
+
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+#define db double
+
+int main()
+{
+	for(int i=1;i<=10000;i++)
+	{
+		system("data.exe");
+		db s=clock();
+		system("csg.exe < data.in > data.out");
+		db t=clock();
+		system("std.exe < data.in > std.out");
+		
+		if(system("fc data.out std.out"))
+		{
+			puts("WA");
+			return 0;
+		}
+		else 
+			printf("AC:%d %.2f ms\n",i,t-s);
+	}
+	return 0;
+}
+```
+
+43. 并查集在合并过程中，可以维护每个点到根这条链上的信息。每次更新父节点后，当前点的信息合并上原父节点的信息。
