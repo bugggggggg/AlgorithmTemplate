@@ -15,7 +15,7 @@ bool vis[maxn+5];
 int prim[maxn],cnt;
 #define LL long long
 #define ULL unsigned long long
-LL mu[maxn],phi[maxn];
+LL mu[maxn+66],phi[maxn+66];
 map<int,LL>ansmu,ansphi;
 void init()
 {
