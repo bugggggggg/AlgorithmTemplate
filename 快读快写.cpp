@@ -1,6 +1,3 @@
-# 快读快写
-
-```c
 inline void read(int &x)
 {
     x=0;
@@ -23,5 +20,4 @@ inline void print(long long x)
     for(int i=cnt;i>=1;i--)putchar(a[i]+'0');
     puts("");
 }
-```
 

@@ -1,6 +1,3 @@
-# 主席树
-
-```c
 #include<cstdio>
 #include<algorithm>
 #include<set>

@@ -1,8 +1,4 @@
-# 长链剖分
-
-线性处理深度相关信息
-
-```c
+// 线性处理深度相关信息
 #include<cstdio>
 #include<algorithm>
 using namespace std;
@@ -71,6 +67,4 @@ int main()
     for(int i=1;i<=n;i++)printf("%d\n",ans[i]);
     return 0;
 }
-
-```
 

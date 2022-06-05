@@ -1,6 +1,3 @@
-# 快速乘
-
-```c
 //O(1)快速乘
 inline LL quick_mul(LL x,LL y,LL MOD){
     x=x%MOD,y=y%MOD;

@@ -1,6 +1,3 @@
-# 后缀数组
-
-```c
 #include<bits/stdc++.h>
 using namespace std;
 const int maxn=10000;
